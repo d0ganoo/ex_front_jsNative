@@ -51,11 +51,15 @@ class App{
 	changeUrl(element, url){
 		let res = url.search(/^(http:\/\/(www)?.[^\s]{1,128}\.[^\s]{3,4})/);
 		if (res === 0){
-			fetch(url).then(profils => profils.json()).catch(()=> console.log("Bad url"))
+			fetch(url)
+			.then((profils) => {
+				return profils.json();
+				})
+			.catch((e)=> console.error("Url valid but no destination",e))
 		 	.then(profils => {
 				this.tabProfils = profils;
 				this.template.renderProfils(element, this.tabProfils);
-			}).catch(()=> console.log("Bad url"));
+			}).catch((e)=> console.error(e));
 		}
 		else{
 			console.log("Bad url");
