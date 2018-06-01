@@ -4,6 +4,7 @@ import Template from "./Template";
 import './index.css'
 
 const tbody = document.getElementsByTagName('tbody')[0];
+const tfoot = document.getElementsByTagName('tfoot')[0];
 const sortable = document.getElementsByClassName('sortable');
 const filter = document.getElementById('filter');
 const url = document.getElementById('url');

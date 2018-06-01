@@ -8,13 +8,24 @@ class App{
 		this.sortKey = true;
 	}
 
+	displayCounterProfils(nbProfils, nbTotalProfils){
+		let str = `<tr>${nbProfils}/ ${nbTotalProfils}</tr>`;
+		document.getElementsByTagName('tfoot')[0].innerHTML = str;
+	}
+
+	counterProfils(profils){
+		return profils.length;
+	}
+
 	displayProfils(element, filter, url){
 		let profilsFiltered = [];
 		this.store.getProfils(url).then(profils => {
 			this.tabProfils = profils;
 			this.tabFiltered = profils;
 			this.template.renderProfils(element, this.tabProfils);
+			this.displayCounterProfils(this.counterProfils(this.tabProfils), this.counterProfils(this.tabProfils));
 		});
+
 	}
 
 
@@ -24,6 +35,7 @@ class App{
 		let profilsFiltered = this.tabProfils.filter((profil) => profil.lastname.toUpperCase().includes(str) || profil.firstname.toUpperCase().includes(str));
 		this.tabProfils = profilsFiltered;
 		this.template.renderProfils(element, profilsFiltered);
+		this.displayCounterProfils(this.counterProfils(profilsFiltered), this.counterProfils(this.tabFiltered));
 	}
 
 	sort(element, str){
